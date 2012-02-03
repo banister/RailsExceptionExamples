@@ -1,46 +1,41 @@
 == Setup
-1) Run: bundle install
-2) Configure Pry exception explorer plugin.. typical places where the plugin config may go: (in order)
-  a) config/initializers/pry.rb -- (name does not matter, contents would just be your EE.enable = true line, etc..)
-  b) config/environments/development.rb -- inside of the Application block
-  c) config/application.rb -- inside of   class Application < Rails::Application
-  d) app/controllers/application_controller.rb -- inside of the class (this is ran whenever a web request is generated)
-  e) app/controllers/beers_controller.rb -- this is ran whenever you go to a specific url eg: http://localhost:3000/beers 
-
-  -- 
-
-  I haven't written an actual rails plugin, so for "production release", I would do a bit of research in this area...  Typically users in rails 3.0+ do not need to configure any additional settings for their gem to work
+1. Run: bundle install
+2. Configure Pry exception explorer plugin.. typical places where the plugin config may go: (in order)
+   a. config/initializers/pry.rb -- (name does not matter, contents would just be your EE.enable = true line, etc..)
+   b. config/environments/development.rb -- inside of the Application block
+   c. config/application.rb -- inside of   class Application < Rails::Application
+   d. app/controllers/application_controller.rb -- inside of the class (this is ran whenever a web request is generated)
+   e. app/controllers/beers_controller.rb -- this is ran whenever you go to a specific url eg: http://localhost:3000/beers 
+ 
+   I haven't written an actual rails plugin, so for "production release", I would do a bit of research in this area...  Typically users in rails 3.0+ do not need to configure any additional settings for their gem to work
 
 3) Start the server:  rails s (from this directory) -- this is where pry console should appear
 
 == Access
 Visit http://localhost:3000 with your web browser.  Here are the files that will be executed (in order) for each url that you go to:
 
-- List of beers (http://localhost:3000 or http://localhost:3000/beers):
+* List of beers (http://localhost:3000 or http://localhost:3000/beers):
+  1. app/controllers/application_controller.rb
+  2. app/controllers/beers_controller.rb    # index method
+  3. app/models/beer.rb
+  4. app/views/beers/index.html.erb
+  5. app/views/layouts/application.html.erb
 
-  1) app/controllers/application_controller.rb
-  2) app/controllers/beers_controller.rb    # index method
-  3) app/models/beer.rb
-  4) app/views/beers/index.html.erb
-  5) app/views/layouts/application.html.erb
+* Editing a beer (http://localhost:3000/beers/1/edit):
+  1. app/controllers/application_controller.rb
+  2. app/controllers/beers_controller.rb         # new method
+  3. app/models/beer.rb
+  4. app/views/beers/edit.html.erb
+  5. app/views/beers/_form.html.erb
+  6. app/views/layouts/application.html.erb
 
-- Editing a beer (http://localhost:3000/beers/1/edit):
-
-  1) app/controllers/application_controller.rb
-  2) app/controllers/beers_controller.rb         # new method
-  3) app/models/beer.rb
-  4) app/views/beers/edit.html.erb
-  5) app/views/beers/_form.html.erb
-  6) app/views/layouts/application.html.erb
-
-- Saving a beer (from the edit a beer page)
-
-  1) app/controllers/application_controller.rb
-  2) app/controllers/beers_controller.rb        # create method
-  3) app/models/beer.rb
-  4) app/controllers/beers_controller.rb        # show method
-  5) app/models/beer.rb
-  6) app/views/beers/show.html.erb
+* Saving a beer (from the edit a beer page):
+  1. app/controllers/application_controller.rb
+  2. app/controllers/beers_controller.rb        # create method
+  3. app/models/beer.rb
+  4. app/controllers/beers_controller.rb        # show method
+  5. app/models/beer.rb
+  6. app/views/beers/show.html.erb
 
 == Finding my exceptions sprinkled all over
 Do a project-wide search for ERROR and you'll find the exceptions along with instructions on how to evoke them.
